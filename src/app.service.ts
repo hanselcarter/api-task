@@ -28,8 +28,6 @@ export class AppService {
 
   public async createTask(task: TaskDtoCreate): Promise<Task | HttpException> {
     try {
-      // const taskCollectionRef = db.collection('tasks').doc();
-
       const taskCreated: TaskDtoCreate = {
         ...task,
 
@@ -57,8 +55,7 @@ export class AppService {
 
   public async deleteTask(id: string): Promise<string | HttpException> {
     try {
-      // await db.collection('tasks').doc(id).delete();
-
+      await this.taskRepository.destroy({ where: { id: id } });
       return id;
     } catch (err) {
       throw new NotFoundException();
